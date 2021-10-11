@@ -2,6 +2,7 @@ package com.qa.musicstore.dto;
 
 public class ItemDTO {
 
+	private Integer id;
 	private String type; // Instrument, accessory, miscellaneous
 	private String category; // Bowed String, String, Woodwind, Brass, Percussion, Keyboard
 	private String instrument; // Piano, Guitar, etc.
@@ -13,6 +14,14 @@ public class ItemDTO {
 
 	public String getType() {
 		return type;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setType(String type) {
