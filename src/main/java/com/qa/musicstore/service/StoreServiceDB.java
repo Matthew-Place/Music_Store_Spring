@@ -35,6 +35,7 @@ public class StoreServiceDB implements StoreService {
 		List<ItemDTO> itemDTOs = new ArrayList<>();
 		for (Item item : store.getItems()) {
 			ItemDTO itemDTO = new ItemDTO();
+			itemDTO.setId(item.getId());
 			itemDTO.setBrand(item.getBrand());
 			itemDTO.setCategory(item.getCategory());
 			itemDTO.setInstrument(item.getInstrument());

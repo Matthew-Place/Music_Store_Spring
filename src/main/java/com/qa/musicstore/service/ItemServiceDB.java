@@ -25,6 +25,7 @@ public class ItemServiceDB implements ItemService {
 	@Override
 	public ItemDTO mapToDTO(Item item) {
 		ItemDTO dto = new ItemDTO();
+		dto.setId(item.getId());
 		dto.setBrand(item.getBrand());
 		dto.setCategory(item.getCategory());
 		dto.setInstrument(item.getInstrument());
