@@ -59,6 +59,10 @@ public class Store {
 		this.items = items;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 	@Override
 	public String toString() {
 		return "Store [id=" + id + ", manager=" + manager + ", address=" + address + ", contactNumber=" + contactNumber
