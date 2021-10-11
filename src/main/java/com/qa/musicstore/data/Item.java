@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.qa.musicstore.data.extra.Price;
-
 @Entity
 public class Item {
 
@@ -22,7 +20,8 @@ public class Item {
 	private String instrument; // Piano, Guitar, etc.
 	private String brand; // brand, like make.
 	private String name; // Custom product name, like Pro guitar
-	private Price price; // Price class which handles pounds and pennies
+
+	private Integer price; // Price class which handles pounds and pennies
 	private Integer stock; // Stock of item - store specific (that's why it uses one to many, not many to
 							// many)
 
@@ -69,11 +68,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public Price getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(Price price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -99,8 +98,9 @@ public class Item {
 
 	@Override
 	public String toString() {
+		String priceString = String.valueOf(price);
 		return "Item [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
-				+ ", brand=" + brand + ", name=" + name + ", price=" + price + ", stock=" + stock + ", store=" + store
+				+ ", brand=" + brand + ", name=" + name + ", price = £" + priceString.substring(0, priceString.length()-3) + "." + priceString.substring(priceString.length()-3) + ", stock=" + stock + ", store=" + store
 				+ "]";
 	}
 
