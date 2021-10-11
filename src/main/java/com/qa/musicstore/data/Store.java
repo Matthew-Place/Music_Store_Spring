@@ -19,9 +19,9 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	String manager;
-	String address;
-	String contactNumber;
+	private String manager;
+	private String address;
+	private String contactNumber;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "store")
