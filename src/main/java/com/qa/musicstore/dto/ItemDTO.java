@@ -1,7 +1,5 @@
 package com.qa.musicstore.dto;
 
-import com.qa.musicstore.data.extra.Price;
-
 public class ItemDTO {
 
 	private String type; // Instrument, accessory, miscellaneous
@@ -9,7 +7,7 @@ public class ItemDTO {
 	private String instrument; // Piano, Guitar, etc.
 	private String brand; // brand, like make.
 	private String name; // Custom product name, like Pro guitar
-	private Price price; // Price class which handles pounds and pennies
+	private Integer price; // Price class which handles pounds and pennies
 	private Integer stock; // Stock of item - store specific (that's why it uses one to many, not many to
 							// many)
 
@@ -53,11 +51,11 @@ public class ItemDTO {
 		this.name = name;
 	}
 
-	public Price getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(Price price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

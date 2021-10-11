@@ -42,7 +42,7 @@ public class Price {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Price)) {
+		if (!(obj instanceof Integer)) {
 			return false;
 		}
 		Price other = (Price) obj;
