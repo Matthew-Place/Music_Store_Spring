@@ -2,19 +2,21 @@ INSERT INTO item
 (
    category,
    type,
-   instument,
+   instrument,
    brand,
    name,
+   price,
    stock,
    store_id
 )
 VALUES
 (
    'String',
-   'Instument',
+   'Instrument',
    'Guitar',
    'Fender',
    'classic',
-   12,
+   1000,
+   10,
    1
 );

@@ -4,9 +4,11 @@ CREATE TABLE item
    id integer primary key auto_increment,
    category varchar (255),
    type varchar (255),
-   instument varchar (255),
+   instrument varchar (255),
    brand varchar (255),
    name varchar (255),
    stock integer,
-   store_id integer FOREIGN KEY REFERENCES store (id)
+   price integer,
+   store_id integer,
+   FOREIGN KEY (store_id) REFERENCES store(id) ON DELETE CASCADE
 );
