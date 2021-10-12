@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.musicstore.data.Store;
+import com.qa.musicstore.dto.StoreDTO;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc // sets up the MockMVC object
@@ -38,7 +39,7 @@ class StoreIntegrationTest {
 		final Store testStore = new Store(null, "Me", "Home", "000000000000");
 		String testStoreJSON = mapper.writeValueAsString(testStore);
 
-		final Store savedStore = new Store(2, "Me", "Home", "000000000000");
+		final StoreDTO savedStore = new StoreDTO(2, "Me", "Home", "000000000000");
 		String savedStoreJSON = mapper.writeValueAsString(savedStore);
 
 		RequestBuilder request = post("/Store/create").contentType(MediaType.APPLICATION_JSON).content(testStoreJSON);
