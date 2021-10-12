@@ -43,6 +43,7 @@ public class StoreServiceDB implements StoreService {
 			itemDTO.setPrice(item.getPrice());
 			itemDTO.setStock(item.getStock());
 			itemDTO.setType(item.getType());
+			itemDTOs.add(itemDTO);
 		}
 
 		dto.setItems(itemDTOs);
@@ -61,5 +62,20 @@ public class StoreServiceDB implements StoreService {
 	@Override
 	public StoreDTO create(Store store) {
 		return mapToDTO(repo.save(store));
+	}
+
+	@Override
+	public StoreDTO findById(Integer id) {
+		return mapToDTO(repo.findById(id).orElse(null));
+	}
+
+	@Override
+	public List<StoreDTO> findAll() {
+		return mapToDTO(repo.findAll());
+	}
+
+	@Override
+	public List<StoreDTO> findByManagerOrAddressOrContactNumber(String manager, String address, String contactNumber) {
+		return mapToDTO(repo.findByManagerOrAddressOrContactNumber(manager, address, contactNumber));
 	}
 }
