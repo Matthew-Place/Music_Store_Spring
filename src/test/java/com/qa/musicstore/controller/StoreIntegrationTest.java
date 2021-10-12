@@ -39,7 +39,7 @@ class StoreIntegrationTest {
 		final Store testStore = new Store(null, "Me", "Home", "000000000000");
 		String testStoreJSON = mapper.writeValueAsString(testStore);
 
-		final StoreDTO savedStore = new StoreDTO(2, "Me", "Home", "000000000000", null);
+		final StoreDTO savedStore = new StoreDTO(2, "Me", "Home", "000000000000");
 		String savedStoreJSON = mapper.writeValueAsString(savedStore);
 
 		RequestBuilder request = post("/Store/create").contentType(MediaType.APPLICATION_JSON).content(testStoreJSON);

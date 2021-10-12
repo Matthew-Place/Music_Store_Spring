@@ -16,6 +16,14 @@ public class StoreDTO {
 		super();
 	}
 
+	public StoreDTO(Integer id, String manager, String address, String contactNumber) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+	}
+
 	public StoreDTO(Integer id, String manager, String address, String contactNumber, List<ItemDTO> itemDTOs) {
 		super();
 		this.id = id;
