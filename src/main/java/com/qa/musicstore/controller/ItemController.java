@@ -2,6 +2,8 @@ package com.qa.musicstore.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +41,40 @@ public class ItemController {
 	@GetMapping("/findAll")
 	public List<ItemDTO> findAll() {
 		return service.findAll();
+	}
+
+	@GetMapping("/findByParametersUsingAnd")
+	public List<ItemDTO> findByParametersUsingAnd(@PathParam("type") String type,
+			@PathParam("category") String category, @PathParam("instrument") String instrument,
+			@PathParam("brand") String brand, @PathParam("name") String name) {
+		return service.findByCategoryAndTypeAndInstrumentAndBrandAndName(type, category, instrument, brand,
+				name);
+	}
+
+	@GetMapping("/findByParametersUsingOr")
+	public List<ItemDTO> findByParametersUsingOr(@PathParam("type") String type, @PathParam("category") String category,
+			@PathParam("instrument") String instrument, @PathParam("brand") String brand,
+			@PathParam("name") String name) {
+		return service.findByCategoryOrTypeOrInstrumentOrBrandOrName(type, category, instrument, brand, name);
+	}
+
+	@GetMapping("/findByPriceGreaterThan")
+	public List<ItemDTO> findByPriceGreaterThan(@PathParam("price") Integer price) {
+		return service.findByPriceGreaterThanEqual(price);
+	}
+
+	@GetMapping("/findByPriceLessThan")
+	public List<ItemDTO> findByPriceLessThan(@PathParam("price") Integer price) {
+		return service.findByPriceLessThanEqual(price);
+	}
+
+	@GetMapping("/findByStockGreaterThan")
+	public List<ItemDTO> findByStockGreaterThan(@PathParam("stock") Integer stock) {
+		return service.findByStockGreaterThanEqual(stock);
+	}
+
+	@GetMapping("/findByStockLessThan")
+	public List<ItemDTO> findByStockLessThan(@PathParam("stock") Integer stock) {
+		return service.findByStockLessThanEqual(stock);
 	}
 }

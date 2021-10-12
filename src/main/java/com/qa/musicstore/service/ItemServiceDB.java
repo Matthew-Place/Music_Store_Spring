@@ -59,4 +59,38 @@ public class ItemServiceDB implements ItemService {
 	public List<ItemDTO> findAll() {
 		return mapToDTO(repo.findAll());
 	}
+
+	@Override
+	public List<ItemDTO> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category,
+			String instrument, String brand, String name) {
+		return mapToDTO(repo.findByCategoryOrTypeOrInstrumentOrBrandOrName(type, category, instrument, brand, name));
+	}
+
+	@Override
+	public List<ItemDTO> findByCategoryAndTypeAndInstrumentAndBrandAndName(String type, String category,
+			String instrument, String brand, String name) {
+		return mapToDTO(repo.findByCategoryAndTypeAndInstrumentAndBrandAndName(type, category, instrument, brand, name));
+	}
+
+	@Override
+	public List<ItemDTO> findByStockGreaterThanEqual(Integer stock) {
+		return mapToDTO(repo.findByStockGreaterThanEqual(stock));
+	}
+
+	@Override
+	public List<ItemDTO> findByStockLessThanEqual(Integer stock) {
+		return mapToDTO(repo.findByStockLessThanEqual(stock));
+	}
+
+	@Override
+	public List<ItemDTO> findByPriceGreaterThanEqual(Integer price) {
+		return mapToDTO(repo.findByPriceGreaterThanEqual(price));
+	}
+
+	@Override
+	public List<ItemDTO> findByPriceLessThanEqual(Integer price) {
+		return mapToDTO(repo.findByPriceLessThanEqual(price));
+	}
+
+
 }
