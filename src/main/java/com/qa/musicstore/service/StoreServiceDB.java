@@ -62,4 +62,14 @@ public class StoreServiceDB implements StoreService {
 	public StoreDTO create(Store store) {
 		return mapToDTO(repo.save(store));
 	}
+
+	@Override
+	public StoreDTO findById(Integer id) {
+		return mapToDTO(repo.findById(id).orElse(null));
+	}
+
+	@Override
+	public List<StoreDTO> findAll() {
+		return mapToDTO(repo.findAll());
+	}
 }
