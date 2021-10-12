@@ -11,6 +11,18 @@ public class StoreDTO {
 	private String contactNumber;
 	List<ItemDTO> items = new ArrayList<>();
 
+	public StoreDTO() {
+		super();
+	}
+
+	public StoreDTO(Integer id, String manager, String address, String contactNumber) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+	}
+
 	public Integer getId() {
 		return id;
 	}

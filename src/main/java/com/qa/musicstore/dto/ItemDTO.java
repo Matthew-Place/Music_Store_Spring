@@ -12,6 +12,25 @@ public class ItemDTO {
 	private Integer stock; // Stock of item - store specific (that's why it uses one to many, not many to
 							// many)
 
+
+
+	public ItemDTO(Integer id, String type, String category, String instrument, String brand, String name,
+			Integer price, Integer stock) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.category = category;
+		this.instrument = instrument;
+		this.brand = brand;
+		this.name = name;
+		this.price = price;
+		this.stock = stock;
+	}
+
+	public ItemDTO() {
+		super();
+	}
+
 	public String getType() {
 		return type;
 	}
