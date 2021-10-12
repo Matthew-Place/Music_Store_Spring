@@ -1,5 +1,7 @@
 package com.qa.musicstore.dto;
 
+import java.util.Objects;
+
 public class ItemDTO {
 
 	private Integer id;
@@ -11,8 +13,6 @@ public class ItemDTO {
 	private Integer price; // Price class which handles pounds and pennies
 	private Integer stock; // Stock of item - store specific (that's why it uses one to many, not many to
 							// many)
-
-
 
 	public ItemDTO(Integer id, String type, String category, String instrument, String brand, String name,
 			Integer price, Integer stock) {
@@ -93,5 +93,25 @@ public class ItemDTO {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(brand, category, id, instrument, name, price, stock, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof ItemDTO)) {
+			return false;
+		}
+		ItemDTO other = (ItemDTO) obj;
+		return Objects.equals(brand, other.brand) && Objects.equals(category, other.category)
+				&& Objects.equals(id, other.id) && Objects.equals(instrument, other.instrument)
+				&& Objects.equals(name, other.name) && Objects.equals(price, other.price)
+				&& Objects.equals(stock, other.stock) && Objects.equals(type, other.type);
 	}
 }
