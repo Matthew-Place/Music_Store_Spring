@@ -26,7 +26,8 @@ class StoreServiceUnitTest {
 	final Item item = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, null);
 	final List<Item> items = new ArrayList<>(Arrays.asList(item));
 	final Store store = new Store(1, "Me", "Home", "000000000000", items);
-	final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, store.getId());
+	final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
+			store.getId());
 	final List<ItemDTO> itemDTOs = new ArrayList<>(Arrays.asList(itemDTO));
 	final StoreDTO storeDTO = new StoreDTO(1, "Me", "Home", "000000000000", itemDTOs);
 	final List<Store> stores = new ArrayList<>(Arrays.asList(store));
