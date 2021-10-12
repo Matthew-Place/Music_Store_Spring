@@ -1,0 +1,20 @@
+INSERT INTO item
+(
+   category,
+   type,
+   instument,
+   brand,
+   name,
+   stock,
+   store_id
+)
+VALUES
+(
+   'String',
+   'Instument',
+   'Guitar',
+   'Fender',
+   'classic',
+   12,
+   1
+);
