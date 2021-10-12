@@ -13,9 +13,10 @@ public class ItemDTO {
 	private Integer price; // Price class which handles pounds and pennies
 	private Integer stock; // Stock of item - store specific (that's why it uses one to many, not many to
 							// many)
+	private Integer storeId;
 
 	public ItemDTO(Integer id, String type, String category, String instrument, String brand, String name,
-			Integer price, Integer stock) {
+			Integer price, Integer stock, Integer storeId) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -25,14 +26,11 @@ public class ItemDTO {
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
+		this.storeId = storeId;
 	}
 
 	public ItemDTO() {
 		super();
-	}
-
-	public String getType() {
-		return type;
 	}
 
 	public Integer getId() {
@@ -41,6 +39,10 @@ public class ItemDTO {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public void setType(String type) {
@@ -95,9 +97,17 @@ public class ItemDTO {
 		this.stock = stock;
 	}
 
+	public Integer getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, category, id, instrument, name, price, stock, type);
+		return Objects.hash(brand, category, id, instrument, name, price, stock, storeId, type);
 	}
 
 	@Override
@@ -112,6 +122,15 @@ public class ItemDTO {
 		return Objects.equals(brand, other.brand) && Objects.equals(category, other.category)
 				&& Objects.equals(id, other.id) && Objects.equals(instrument, other.instrument)
 				&& Objects.equals(name, other.name) && Objects.equals(price, other.price)
-				&& Objects.equals(stock, other.stock) && Objects.equals(type, other.type);
+				&& Objects.equals(stock, other.stock) && Objects.equals(storeId, other.storeId)
+				&& Objects.equals(type, other.type);
 	}
+
+	@Override
+	public String toString() {
+		return "ItemDTO [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
+				+ ", brand=" + brand + ", name=" + name + ", price=" + price + ", stock=" + stock + ", storeId="
+				+ storeId + "]";
+	}
+
 }

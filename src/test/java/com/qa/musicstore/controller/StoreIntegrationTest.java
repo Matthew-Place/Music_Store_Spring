@@ -23,8 +23,8 @@ import com.qa.musicstore.dto.StoreDTO;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc // sets up the MockMVC object
-@Sql(scripts = { "classpath:tables/store-schema.sql",
-		"classpath:tables/store-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = { "classpath:tables/test-schema.sql",
+		"classpath:tables/test-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 class StoreIntegrationTest {
 

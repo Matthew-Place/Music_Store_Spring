@@ -119,8 +119,8 @@ public class Item {
 		String priceString = String.valueOf(price);
 		return "Item [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
 				+ ", brand=" + brand + ", name=" + name + ", price = £"
-				+ priceString.substring(0, priceString.length() - 3) + "."
-				+ priceString.substring(priceString.length() - 3) + ", stock=" + stock + ", store=" + store + "]";
+				+ priceString.substring(0, priceString.length() - 2) + "."
+				+ priceString.substring(priceString.length() - 2) + ", stock=" + stock + ", store=" + store + "]";
 	}
 
 	@Override
