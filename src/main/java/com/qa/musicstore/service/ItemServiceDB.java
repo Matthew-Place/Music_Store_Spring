@@ -33,10 +33,7 @@ public class ItemServiceDB implements ItemService {
 		dto.setPrice(item.getPrice());
 		dto.setStock(item.getStock());
 		dto.setType(item.getType());
-		dto.setStore_id(item.getStore().getId());
-		dto.setAddress(item.getStore().getAddress());
-		dto.setManager(item.getStore().getManager());
-		dto.setContactNumber(item.getStore().getContactNumber());
+		dto.setStoreId(item.getStore().getId());
 		return dto;
 	}
 

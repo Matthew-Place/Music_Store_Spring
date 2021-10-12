@@ -33,21 +33,21 @@ class ItemServiceUnitTest {
 	@Test
 	void mapToDTOTest() {
 		final Item item = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore);
-		final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId(), testStore.getManager(), testStore.getAddress(), testStore.getContactNumber());
+		final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId());
 		assertEquals(itemDTO, service.mapToDTO(item));
 	}
 
 	@Test
 	void mapListToDTOTest() {
 		final List<Item> items = new ArrayList<>(Arrays.asList(new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore)));
-		final List<ItemDTO> itemDTOs = new ArrayList<>(Arrays.asList(new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId(), testStore.getManager(), testStore.getAddress(), testStore.getContactNumber())));
+		final List<ItemDTO> itemDTOs = new ArrayList<>(Arrays.asList(new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId())));
 		assertEquals(itemDTOs, service.mapToDTO(items));
 	}
 
 	@Test
 	void testCreate() {
 		final Item item = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore);
-		final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId(), testStore.getManager(), testStore.getAddress(), testStore.getContactNumber());
+		final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId());
 
 		Mockito.when(repo.save(item)).thenReturn(item);
 
