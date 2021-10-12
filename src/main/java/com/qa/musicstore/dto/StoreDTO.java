@@ -2,6 +2,7 @@ package com.qa.musicstore.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class StoreDTO {
 
@@ -10,6 +11,18 @@ public class StoreDTO {
 	private String address;
 	private String contactNumber;
 	List<ItemDTO> items = new ArrayList<>();
+
+	public StoreDTO() {
+		super();
+	}
+
+	public StoreDTO(Integer id, String manager, String address, String contactNumber) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+	}
 
 	public Integer getId() {
 		return id;
@@ -49,6 +62,25 @@ public class StoreDTO {
 
 	public void setItems(List<ItemDTO> items) {
 		this.items = items;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, contactNumber, id, items, manager);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof StoreDTO)) {
+			return false;
+		}
+		StoreDTO other = (StoreDTO) obj;
+		return Objects.equals(address, other.address) && Objects.equals(contactNumber, other.contactNumber)
+				&& Objects.equals(id, other.id) && Objects.equals(items, other.items)
+				&& Objects.equals(manager, other.manager);
 	}
 
 }
