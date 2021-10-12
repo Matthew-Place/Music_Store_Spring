@@ -2,6 +2,10 @@ package com.qa.musicstore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,20 @@ class StoreServiceUnitTest {
 
 	@MockBean
 	private StoreRepo repo;
+
+	@Test
+	void mapToDTOTest() {
+		final Store store = new Store(1, "Me", "Home", "000000000000");
+		final StoreDTO storeDTO = new StoreDTO(1, "Me", "Home", "000000000000");
+		assertEquals(storeDTO, service.mapToDTO(store));
+	}
+
+	@Test
+	void mapListToDTOTest() {
+		final List<Store> stores = new ArrayList<>(Arrays.asList(new Store(1, "Me", "Home", "000000000000")));
+		final List<StoreDTO> storeDTOs = new ArrayList<>(Arrays.asList(new StoreDTO(1, "Me", "Home", "000000000000")));
+		assertEquals(storeDTOs, service.mapToDTO(stores));
+	}
 
 	@Test
 	void testCreate() {
