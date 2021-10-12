@@ -49,4 +49,14 @@ public class ItemServiceDB implements ItemService {
 	public ItemDTO create(Item item) {
 		return mapToDTO(repo.save(item));
 	}
+
+	@Override
+	public ItemDTO findById(Integer id) {
+		return mapToDTO(repo.findById(id).orElse(null));
+	}
+
+	@Override
+	public List<ItemDTO> findAll() {
+		return mapToDTO(repo.findAll());
+	}
 }
