@@ -126,4 +126,11 @@ public class ItemDTO {
 				&& Objects.equals(type, other.type);
 	}
 
+	@Override
+	public String toString() {
+		return "ItemDTO [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
+				+ ", brand=" + brand + ", name=" + name + ", price=" + price + ", stock=" + stock + ", storeId="
+				+ storeId + "]";
+	}
+
 }

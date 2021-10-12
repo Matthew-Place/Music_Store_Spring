@@ -57,17 +57,17 @@ public class StoreDTO {
 		this.contactNumber = contactNumber;
 	}
 
-	public List<ItemDTO> getItems() {
-		return items;
+	public List<ItemDTO> getItemDTOs() {
+		return itemDTOs;
 	}
 
-	public void setItems(List<ItemDTO> items) {
-		this.items = items;
+	public void setItemDTOs(List<ItemDTO> itemDTOs) {
+		this.itemDTOs = itemDTOs;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, contactNumber, id, items, manager);
+		return Objects.hash(address, contactNumber, id, itemDTOs, manager);
 	}
 
 	@Override
@@ -80,8 +80,14 @@ public class StoreDTO {
 		}
 		StoreDTO other = (StoreDTO) obj;
 		return Objects.equals(address, other.address) && Objects.equals(contactNumber, other.contactNumber)
-				&& Objects.equals(id, other.id) && Objects.equals(items, other.items)
+				&& Objects.equals(id, other.id) && Objects.equals(itemDTOs, other.itemDTOs)
 				&& Objects.equals(manager, other.manager);
+	}
+
+	@Override
+	public String toString() {
+		return "StoreDTO [id=" + id + ", manager=" + manager + ", address=" + address + ", contactNumber="
+				+ contactNumber + ", itemDTOs=" + itemDTOs + "]";
 	}
 
 }
