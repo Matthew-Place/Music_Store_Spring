@@ -24,9 +24,8 @@ import com.qa.musicstore.dto.ItemDTO;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc // sets up the MockMVC object
-@Sql(scripts = { "classpath:tables/store-schema.sql", "classpath:tables/store-data.sql",
-		"classpath:tables/item-schema.sql",
-		"classpath:tables/item-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = { "classpath:tables/test-schema.sql",
+		"classpath:tables/test-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 class ItemIntegrationTest {
 	final Store testStore = new Store(1, "Me", "Home", "000000000000");
@@ -43,7 +42,8 @@ class ItemIntegrationTest {
 				testStore);
 		String testItemJSON = mapper.writeValueAsString(testItem);
 
-		final ItemDTO savedItem = new ItemDTO(2, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10);
+		final ItemDTO savedItem = new ItemDTO(2, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
+				testStore.getId(), testStore.getManager(), testStore.getAddress(), testStore.getContactNumber());
 		String savedItemJSON = mapper.writeValueAsString(savedItem);
 
 		RequestBuilder request = post("/Item/create").contentType(MediaType.APPLICATION_JSON).content(testItemJSON);
