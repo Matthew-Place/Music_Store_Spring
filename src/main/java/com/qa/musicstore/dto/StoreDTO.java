@@ -10,18 +10,19 @@ public class StoreDTO {
 	private String manager;
 	private String address;
 	private String contactNumber;
-	List<ItemDTO> items = new ArrayList<>();
+	List<ItemDTO> itemDTOs = new ArrayList<>();
 
 	public StoreDTO() {
 		super();
 	}
 
-	public StoreDTO(Integer id, String manager, String address, String contactNumber) {
+	public StoreDTO(Integer id, String manager, String address, String contactNumber, List<ItemDTO> itemDTOs) {
 		super();
 		this.id = id;
 		this.manager = manager;
 		this.address = address;
 		this.contactNumber = contactNumber;
+		this.itemDTOs = itemDTOs;
 	}
 
 	public Integer getId() {
