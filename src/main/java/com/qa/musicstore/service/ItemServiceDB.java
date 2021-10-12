@@ -65,15 +65,9 @@ public class ItemServiceDB implements ItemService {
 	}
 
 	@Override
-	public List<ItemDTO> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category,
-			String instrument, String brand, String name) {
+	public List<ItemDTO> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category, String instrument,
+			String brand, String name) {
 		return mapToDTO(repo.findByCategoryOrTypeOrInstrumentOrBrandOrName(type, category, instrument, brand, name));
-	}
-
-	@Override
-	public List<ItemDTO> findByCategoryAndTypeAndInstrumentAndBrandAndName(String type, String category,
-			String instrument, String brand, String name) {
-		return mapToDTO(repo.findByCategoryAndTypeAndInstrumentAndBrandAndName(type, category, instrument, brand, name));
 	}
 
 	@Override
@@ -95,6 +89,5 @@ public class ItemServiceDB implements ItemService {
 	public List<ItemDTO> findByPriceLessThanEqual(Integer price) {
 		return mapToDTO(repo.findByPriceLessThanEqual(price));
 	}
-
 
 }

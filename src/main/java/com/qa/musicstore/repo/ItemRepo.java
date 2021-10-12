@@ -13,9 +13,6 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
 	public List<Item> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category,
 			String instrument, String brand, String name);
 
-	public List<Item> findByCategoryAndTypeAndInstrumentAndBrandAndName(String type, String category,
-			String instrument, String brand, String name);
-
 	public List<Item> findByStockGreaterThanEqual(Integer stock);
 
 	public List<Item> findByStockLessThanEqual(Integer stock);

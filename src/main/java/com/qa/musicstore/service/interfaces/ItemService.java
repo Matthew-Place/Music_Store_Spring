@@ -10,9 +10,6 @@ public interface ItemService extends GenericService<ItemDTO, Item> {
 	public List<ItemDTO> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category,
 			String instrument, String brand, String name);
 
-	public List<ItemDTO> findByCategoryAndTypeAndInstrumentAndBrandAndName(String type, String category,
-			String instrument, String brand, String name);
-
 	public List<ItemDTO> findByStockGreaterThanEqual(Integer stock);
 
 	public List<ItemDTO> findByStockLessThanEqual(Integer stock);
