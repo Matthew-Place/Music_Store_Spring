@@ -43,6 +43,7 @@ public class StoreServiceDB implements StoreService {
 			itemDTO.setPrice(item.getPrice());
 			itemDTO.setStock(item.getStock());
 			itemDTO.setType(item.getType());
+			itemDTO.setStoreId(item.getStore().getId());
 			itemDTOs.add(itemDTO);
 		}
 
