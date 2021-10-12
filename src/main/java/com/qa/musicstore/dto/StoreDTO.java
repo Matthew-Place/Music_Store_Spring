@@ -10,7 +10,7 @@ public class StoreDTO {
 	private String manager;
 	private String address;
 	private String contactNumber;
-	List<ItemDTO> items = new ArrayList<>();
+	List<ItemDTO> itemDTOs = new ArrayList<>();
 
 	public StoreDTO() {
 		super();
@@ -22,6 +22,15 @@ public class StoreDTO {
 		this.manager = manager;
 		this.address = address;
 		this.contactNumber = contactNumber;
+	}
+
+	public StoreDTO(Integer id, String manager, String address, String contactNumber, List<ItemDTO> itemDTOs) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+		this.itemDTOs = itemDTOs;
 	}
 
 	public Integer getId() {
@@ -56,17 +65,17 @@ public class StoreDTO {
 		this.contactNumber = contactNumber;
 	}
 
-	public List<ItemDTO> getItems() {
-		return items;
+	public List<ItemDTO> getItemDTOs() {
+		return itemDTOs;
 	}
 
-	public void setItems(List<ItemDTO> items) {
-		this.items = items;
+	public void setItemDTOs(List<ItemDTO> itemDTOs) {
+		this.itemDTOs = itemDTOs;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, contactNumber, id, items, manager);
+		return Objects.hash(address, contactNumber, id, itemDTOs, manager);
 	}
 
 	@Override
@@ -79,8 +88,14 @@ public class StoreDTO {
 		}
 		StoreDTO other = (StoreDTO) obj;
 		return Objects.equals(address, other.address) && Objects.equals(contactNumber, other.contactNumber)
-				&& Objects.equals(id, other.id) && Objects.equals(items, other.items)
+				&& Objects.equals(id, other.id) && Objects.equals(itemDTOs, other.itemDTOs)
 				&& Objects.equals(manager, other.manager);
+	}
+
+	@Override
+	public String toString() {
+		return "StoreDTO [id=" + id + ", manager=" + manager + ", address=" + address + ", contactNumber="
+				+ contactNumber + ", itemDTOs=" + itemDTOs + "]";
 	}
 
 }

@@ -13,13 +13,10 @@ public class ItemDTO {
 	private Integer price; // Price class which handles pounds and pennies
 	private Integer stock; // Stock of item - store specific (that's why it uses one to many, not many to
 							// many)
-	private Integer Store_id;
-	private String manager;
-	private String address;
-	private String contactNumber;
+	private Integer storeId;
 
 	public ItemDTO(Integer id, String type, String category, String instrument, String brand, String name,
-			Integer price, Integer stock, Integer store_id, String manager, String address, String contactNumber) {
+			Integer price, Integer stock, Integer storeId) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -29,15 +26,11 @@ public class ItemDTO {
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
-		Store_id = store_id;
-		this.manager = manager;
-		this.address = address;
-		this.contactNumber = contactNumber;
+		this.storeId = storeId;
 	}
 
 	public ItemDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -104,42 +97,17 @@ public class ItemDTO {
 		this.stock = stock;
 	}
 
-	public Integer getStore_id() {
-		return Store_id;
+	public Integer getStoreId() {
+		return storeId;
 	}
 
-	public void setStore_id(Integer store_id) {
-		Store_id = store_id;
-	}
-
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getContactNumber() {
-		return contactNumber;
-	}
-
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Store_id, address, brand, category, contactNumber, id, instrument, manager, name, price,
-				stock, type);
+		return Objects.hash(brand, category, id, instrument, name, price, stock, storeId, type);
 	}
 
 	@Override
@@ -151,12 +119,18 @@ public class ItemDTO {
 			return false;
 		}
 		ItemDTO other = (ItemDTO) obj;
-		return Objects.equals(Store_id, other.Store_id) && Objects.equals(address, other.address)
-				&& Objects.equals(brand, other.brand) && Objects.equals(category, other.category)
-				&& Objects.equals(contactNumber, other.contactNumber) && Objects.equals(id, other.id)
-				&& Objects.equals(instrument, other.instrument) && Objects.equals(manager, other.manager)
+		return Objects.equals(brand, other.brand) && Objects.equals(category, other.category)
+				&& Objects.equals(id, other.id) && Objects.equals(instrument, other.instrument)
 				&& Objects.equals(name, other.name) && Objects.equals(price, other.price)
-				&& Objects.equals(stock, other.stock) && Objects.equals(type, other.type);
+				&& Objects.equals(stock, other.stock) && Objects.equals(storeId, other.storeId)
+				&& Objects.equals(type, other.type);
+	}
+
+	@Override
+	public String toString() {
+		return "ItemDTO [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
+				+ ", brand=" + brand + ", name=" + name + ", price=" + price + ", stock=" + stock + ", storeId="
+				+ storeId + "]";
 	}
 
 }

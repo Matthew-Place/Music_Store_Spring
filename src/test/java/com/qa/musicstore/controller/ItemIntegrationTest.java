@@ -43,7 +43,7 @@ class ItemIntegrationTest {
 		String testItemJSON = mapper.writeValueAsString(testItem);
 
 		final ItemDTO savedItem = new ItemDTO(2, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
-				testStore.getId(), testStore.getManager(), testStore.getAddress(), testStore.getContactNumber());
+				testStore.getId());
 		String savedItemJSON = mapper.writeValueAsString(savedItem);
 
 		RequestBuilder request = post("/Item/create").contentType(MediaType.APPLICATION_JSON).content(testItemJSON);
