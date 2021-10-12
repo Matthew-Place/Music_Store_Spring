@@ -31,6 +31,15 @@ public class Store {
 		super();
 	}
 
+	public Store(Integer id, String manager, String address, String contactNumber, List<Item> items) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+		this.items = items;
+	}
+
 	public Store(Integer id, String manager, String address, String contactNumber) {
 		super();
 		this.id = id;
