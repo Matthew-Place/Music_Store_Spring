@@ -27,6 +27,27 @@ public class Store {
 	@OneToMany(mappedBy = "store")
 	List<Item> items = new ArrayList<>();
 
+	public Store() {
+		super();
+	}
+
+	public Store(Integer id, String manager, String address, String contactNumber, List<Item> items) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+		this.items = items;
+	}
+
+	public Store(Integer id, String manager, String address, String contactNumber) {
+		super();
+		this.id = id;
+		this.manager = manager;
+		this.address = address;
+		this.contactNumber = contactNumber;
+	}
+
 	public String getManager() {
 		return manager;
 	}

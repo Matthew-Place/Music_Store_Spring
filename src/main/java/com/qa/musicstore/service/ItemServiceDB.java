@@ -33,6 +33,7 @@ public class ItemServiceDB implements ItemService {
 		dto.setPrice(item.getPrice());
 		dto.setStock(item.getStock());
 		dto.setType(item.getType());
+		dto.setStoreId(item.getStore().getId());
 		return dto;
 	}
 
@@ -49,4 +50,41 @@ public class ItemServiceDB implements ItemService {
 	public ItemDTO create(Item item) {
 		return mapToDTO(repo.save(item));
 	}
+
+	@Override
+	public ItemDTO findById(Integer id) {
+		return mapToDTO(repo.findById(id).orElse(null));
+	}
+
+	@Override
+	public List<ItemDTO> findAll() {
+		return mapToDTO(repo.findAll());
+	}
+
+	@Override
+	public List<ItemDTO> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category, String instrument,
+			String brand, String name) {
+		return mapToDTO(repo.findByCategoryOrTypeOrInstrumentOrBrandOrName(type, category, instrument, brand, name));
+	}
+
+	@Override
+	public List<ItemDTO> findByStockGreaterThanEqual(Integer stock) {
+		return mapToDTO(repo.findByStockGreaterThanEqual(stock));
+	}
+
+	@Override
+	public List<ItemDTO> findByStockLessThanEqual(Integer stock) {
+		return mapToDTO(repo.findByStockLessThanEqual(stock));
+	}
+
+	@Override
+	public List<ItemDTO> findByPriceGreaterThanEqual(Integer price) {
+		return mapToDTO(repo.findByPriceGreaterThanEqual(price));
+	}
+
+	@Override
+	public List<ItemDTO> findByPriceLessThanEqual(Integer price) {
+		return mapToDTO(repo.findByPriceLessThanEqual(price));
+	}
+
 }

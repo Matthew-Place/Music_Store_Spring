@@ -9,4 +9,8 @@ public interface GenericService<T, K extends Object> {
 	public List<T> mapToDTO(List<K> k);
 
 	public T create(K k);
+
+	public T findById(Integer id);
+
+	public List<T> findAll();
 }
