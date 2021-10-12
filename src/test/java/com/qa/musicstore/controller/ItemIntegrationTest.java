@@ -42,9 +42,8 @@ class ItemIntegrationTest {
 				testStore);
 		String testItemJSON = mapper.writeValueAsString(testItem);
 
-		// Unsure why this expects 2 as the store ID
 		final ItemDTO savedItem = new ItemDTO(2, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
-				testStore.getId() + 1, testStore.getManager(), testStore.getAddress(), testStore.getContactNumber());
+				testStore.getId(), testStore.getManager(), testStore.getAddress(), testStore.getContactNumber());
 		String savedItemJSON = mapper.writeValueAsString(savedItem);
 
 		RequestBuilder request = post("/Item/create").contentType(MediaType.APPLICATION_JSON).content(testItemJSON);
