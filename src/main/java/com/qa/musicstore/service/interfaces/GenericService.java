@@ -10,10 +10,6 @@ public interface GenericService<T, K extends Object> {
 
 	public T create(K k);
 
-	public T update(Integer id, K k);
-
-	public boolean delete(Integer id);
-
 	public T findById(Integer id);
 
 	public List<T> findAll();
