@@ -1,7 +1,9 @@
 package com.qa.musicstore.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,7 +35,6 @@ import com.qa.musicstore.dto.StoreDTO;
 		"classpath:tables/test-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 class StoreIntegrationTest {
-	final private Store testStore = new Store(null, "Me", "Home", "000000000000");
 	final private ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, 1);
 	final private List<ItemDTO> itemDTOs = new ArrayList<>(Arrays.asList(itemDTO));
 
@@ -45,6 +46,7 @@ class StoreIntegrationTest {
 
 	@Test
 	void testCreate() throws Exception {
+		final Store testStore = new Store(null, "Me", "Home", "000000000000");
 		String testStoreJSON = mapper.writeValueAsString(testStore);
 
 		final StoreDTO savedStore = new StoreDTO(2, "Me", "Home", "000000000000");
@@ -56,6 +58,32 @@ class StoreIntegrationTest {
 		ResultMatcher checkContent = content().json(savedStoreJSON);
 
 		mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
+
+	@Test
+	void testUpdate() throws Exception {
+		final Store testStore = new Store(1, "You", "Away", "111111111111");
+		String testStoreJSON = mapper.writeValueAsString(testStore);
+
+		final StoreDTO savedStore = new StoreDTO(1, "You", "Away", "111111111111");
+		String savedStoreJSON = mapper.writeValueAsString(savedStore);
+
+		RequestBuilder request = put("/Store/update/{id}", 1).contentType(MediaType.APPLICATION_JSON)
+				.content(testStoreJSON);
+
+		ResultMatcher checkStatus = status().isAccepted();
+		ResultMatcher checkContent = content().json(savedStoreJSON);
+
+		mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
+
+	@Test
+	void testDelete() throws Exception {
+		RequestBuilder request = delete("/Store/close/{id}", 1);
+
+		ResultMatcher checkStatus = status().isNoContent();
+
+		mvc.perform(request).andExpect(checkStatus);
 	}
 
 	@Test

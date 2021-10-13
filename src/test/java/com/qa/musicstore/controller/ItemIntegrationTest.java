@@ -1,7 +1,9 @@
 package com.qa.musicstore.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,8 +34,6 @@ import com.qa.musicstore.dto.ItemDTO;
 @ActiveProfiles("test")
 class ItemIntegrationTest {
 	final private Store testStore = new Store(1, "Me", "Home", "000000000000");
-	final private Item testItem = new Item(null, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
-			testStore);
 
 	@Autowired
 	private MockMvc mvc;
@@ -43,7 +43,9 @@ class ItemIntegrationTest {
 
 	@Test
 	void testCreate() throws Exception {
-		final String testItemJSON = mapper.writeValueAsString(testItem);
+		final Item testItem = new Item(null, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
+				testStore);
+		String testItemJSON = mapper.writeValueAsString(testItem);
 
 		final ItemDTO savedItem = new ItemDTO(2, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
 				testStore.getId());
@@ -55,6 +57,33 @@ class ItemIntegrationTest {
 		ResultMatcher checkContent = content().json(savedItemJSON);
 
 		mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
+
+	@Test
+	void testUpdate() throws Exception {
+		final Item testItem = new Item(1, "Instrument", "Keyboard", "Piano", "Bechstein", "Grand", 1000, 10, testStore);
+		String testItemJSON = mapper.writeValueAsString(testItem);
+
+		final ItemDTO savedItem = new ItemDTO(1, "Instrument", "Keyboard", "Piano", "Bechstein", "Grand", 1000, 10,
+				testStore.getId());
+		String savedItemJSON = mapper.writeValueAsString(savedItem);
+
+		RequestBuilder request = put("/Item/update/{id}", 1).contentType(MediaType.APPLICATION_JSON)
+				.content(testItemJSON);
+
+		ResultMatcher checkStatus = status().isAccepted();
+		ResultMatcher checkContent = content().json(savedItemJSON);
+
+		mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
+
+	@Test
+	void testDelete() throws Exception {
+		RequestBuilder request = delete("/Item/delete/{id}", 1);
+
+		ResultMatcher checkStatus = status().isNoContent();
+
+		mvc.perform(request).andExpect(checkStatus);
 	}
 
 	@Test
@@ -77,7 +106,9 @@ class ItemIntegrationTest {
 				testStore.getId());
 		String savedItemJSON = mapper.writeValueAsString(List.of(savedItem));
 
-		RequestBuilder request = get("/Item/findByParameters?" + "type=" + savedItem.getType() + "&category=" + savedItem.getCategory() + "&instrument=" + savedItem.getInstrument() + "&brand=" + savedItem.getBrand() + "&name=" + savedItem.getName());
+		RequestBuilder request = get("/Item/findByParameters?" + "type=" + savedItem.getType() + "&category="
+				+ savedItem.getCategory() + "&instrument=" + savedItem.getInstrument() + "&brand="
+				+ savedItem.getBrand() + "&name=" + savedItem.getName());
 
 		ResultMatcher checkStatus = status().isOk();
 		ResultMatcher checkContent = content().json(savedItemJSON);
