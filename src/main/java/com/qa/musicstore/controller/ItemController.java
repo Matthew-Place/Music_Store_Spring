@@ -43,8 +43,8 @@ public class ItemController {
 		return service.findAll();
 	}
 
-	@GetMapping("/findByParametersUsingOr")
-	public List<ItemDTO> findByParametersUsingOr(@PathParam("type") String type, @PathParam("category") String category,
+	@GetMapping("/findByParameters")
+	public List<ItemDTO> findByParameters(@PathParam("type") String type, @PathParam("category") String category,
 			@PathParam("instrument") String instrument, @PathParam("brand") String brand,
 			@PathParam("name") String name) {
 		return service.findByCategoryOrTypeOrInstrumentOrBrandOrName(type, category, instrument, brand, name);
