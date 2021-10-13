@@ -6,7 +6,7 @@ INSERT INTO store
 )
 VALUES
 (
-   'Matthew',
+   'Me',
    'Home',
    '000000000000'
 );
@@ -27,7 +27,7 @@ VALUES
    'Instrument',
    'Guitar',
    'Fender',
-   'classic',
+   'Classic',
    1000,
    10,
    1

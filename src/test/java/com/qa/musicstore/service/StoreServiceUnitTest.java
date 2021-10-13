@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,7 +27,8 @@ class StoreServiceUnitTest {
 	final Item item = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, null);
 	final List<Item> items = new ArrayList<>(Arrays.asList(item));
 	final Store store = new Store(1, "Me", "Home", "000000000000", items);
-	final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, store.getId());
+	final ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
+			store.getId());
 	final List<ItemDTO> itemDTOs = new ArrayList<>(Arrays.asList(itemDTO));
 	final StoreDTO storeDTO = new StoreDTO(1, "Me", "Home", "000000000000", itemDTOs);
 	final List<Store> stores = new ArrayList<>(Arrays.asList(store));
@@ -55,5 +57,36 @@ class StoreServiceUnitTest {
 		assertEquals(storeDTO, service.create(store));
 
 		Mockito.verify(repo, Mockito.times(1)).save(store);
+	}
+
+	@Test
+	void testFindById() {
+		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
+
+		assertEquals(storeDTO, service.findById(store.getId()));
+
+		Mockito.verify(repo, Mockito.times(1)).findById(store.getId());
+	}
+
+	@Test
+	void testFindAll() {
+		Mockito.when(repo.findAll()).thenReturn(stores);
+
+		assertEquals(storeDTOs, service.findAll());
+
+		Mockito.verify(repo, Mockito.times(1)).findAll();
+	}
+
+	@Test
+	void findByParameters() {
+		Mockito.when(repo.findByManagerOrAddressOrContactNumber(store.getManager(), store.getAddress(),
+				store.getContactNumber())).thenReturn(stores);
+
+		assertEquals(storeDTOs, service.findByManagerOrAddressOrContactNumber(store.getManager(), store.getAddress(),
+				store.getContactNumber()));
+
+		Mockito.verify(repo, Mockito.times(1)).findByManagerOrAddressOrContactNumber(store.getManager(),
+				store.getAddress(), store.getContactNumber());
+
 	}
 }
