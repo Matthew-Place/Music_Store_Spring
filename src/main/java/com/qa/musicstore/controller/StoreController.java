@@ -6,9 +6,11 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,4 +50,19 @@ public class StoreController {
 			@PathParam("contactNumber") String contactNumber) {
 		return service.findByManagerOrAddressOrContactNumber(manager, address, contactNumber);
 	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<StoreDTO> update(@PathVariable Integer id, @RequestBody Store store) {
+		return new ResponseEntity<>(service.update(id, store), HttpStatus.ACCEPTED);
+	}
+
+	@DeleteMapping("/close/{id}")
+	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id) {
+		if (service.delete(id)) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 }

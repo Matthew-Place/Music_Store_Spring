@@ -66,6 +66,22 @@ public class StoreServiceDB implements StoreService {
 	}
 
 	@Override
+	public StoreDTO update(Integer id, Store store) {
+		Store updatedStore = repo.findById(id).orElse(null);
+		updatedStore.setAddress(store.getAddress());
+		updatedStore.setContactNumber(store.getContactNumber());
+		updatedStore.setManager(store.getManager());
+		updatedStore.setItems(store.getItems());
+		return mapToDTO(repo.save(updatedStore));
+	}
+
+	@Override
+	public boolean delete(Integer id) {
+		repo.deleteById(id);
+		return !repo.existsById(id);
+	}
+
+	@Override
 	public StoreDTO findById(Integer id) {
 		return mapToDTO(repo.findById(id).orElse(null));
 	}
@@ -79,4 +95,5 @@ public class StoreServiceDB implements StoreService {
 	public List<StoreDTO> findByManagerOrAddressOrContactNumber(String manager, String address, String contactNumber) {
 		return mapToDTO(repo.findByManagerOrAddressOrContactNumber(manager, address, contactNumber));
 	}
+
 }
