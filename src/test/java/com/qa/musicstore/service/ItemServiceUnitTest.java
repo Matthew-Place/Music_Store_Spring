@@ -25,7 +25,8 @@ import com.qa.musicstore.repo.ItemRepo;
 class ItemServiceUnitTest {
 	final private Store testStore = new Store(1, "Me", "Home", "000000000000");
 	final private Item item = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore);
-	final private ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore.getId());
+	final private ItemDTO itemDTO = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
+			testStore.getId());
 	final private List<Item> items = new ArrayList<>(Arrays.asList(item));
 	final private List<ItemDTO> itemDTOs = new ArrayList<>(Arrays.asList(itemDTO));
 
@@ -74,11 +75,14 @@ class ItemServiceUnitTest {
 
 	@Test
 	void testFindByParameters() {
-		Mockito.when(repo.findByCategoryOrTypeOrInstrumentOrBrandOrName(item.getType(), item.getCategory(), item.getInstrument(), item.getBrand(), item.getName())).thenReturn(items);
+		Mockito.when(repo.findByCategoryOrTypeOrInstrumentOrBrandOrName(item.getType(), item.getCategory(),
+				item.getInstrument(), item.getBrand(), item.getName())).thenReturn(items);
 
-		assertEquals(itemDTOs, service.findByCategoryOrTypeOrInstrumentOrBrandOrName(item.getType(), item.getCategory(), item.getInstrument(), item.getBrand(), item.getName()));
+		assertEquals(itemDTOs, service.findByCategoryOrTypeOrInstrumentOrBrandOrName(item.getType(), item.getCategory(),
+				item.getInstrument(), item.getBrand(), item.getName()));
 
-		Mockito.verify(repo, Mockito.times(1)).findByCategoryOrTypeOrInstrumentOrBrandOrName(item.getType(), item.getCategory(), item.getInstrument(), item.getBrand(), item.getName());
+		Mockito.verify(repo, Mockito.times(1)).findByCategoryOrTypeOrInstrumentOrBrandOrName(item.getType(),
+				item.getCategory(), item.getInstrument(), item.getBrand(), item.getName());
 	}
 
 	@Test
@@ -116,6 +120,5 @@ class ItemServiceUnitTest {
 
 		Mockito.verify(repo, Mockito.times(1)).findByPriceLessThanEqual(item.getPrice());
 	}
-
 
 }
