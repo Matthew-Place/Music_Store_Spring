@@ -27,7 +27,7 @@ VALUES
    'Instrument',
    'Guitar',
    'Fender',
-   'classic',
+   'Classic',
    1000,
    10,
    1
