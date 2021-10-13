@@ -56,6 +56,27 @@ class ItemServiceUnitTest {
 	}
 
 	@Test
+	void testUpdate() {
+		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
+		Mockito.when(repo.save(item)).thenReturn(item);
+
+		assertEquals(itemDTO, service.update(item.getId(), item));
+
+		Mockito.verify(repo, Mockito.times(1)).save(item);
+		Mockito.verify(repo, Mockito.times(1)).findById(item.getId());
+	}
+
+	@Test
+	void testDelete() {
+		Mockito.when(repo.existsById(item.getId())).thenReturn(false);
+
+		assertEquals(true, service.delete(item.getId()));
+
+		Mockito.verify(repo, Mockito.times(1)).deleteById(item.getId());
+		Mockito.verify(repo, Mockito.times(1)).existsById(item.getId());
+	}
+
+	@Test
 	void testFindById() {
 		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
 

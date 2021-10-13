@@ -60,6 +60,26 @@ class StoreServiceUnitTest {
 	}
 
 	@Test
+	void testUpdate() {
+		Mockito.when(repo.save(store)).thenReturn(store);
+		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
+
+		assertEquals(storeDTO, service.update(store.getId(), store));
+
+		Mockito.verify(repo, Mockito.times(1)).findById(store.getId());
+		Mockito.verify(repo, Mockito.times(1)).save(store);
+	}
+
+	@Test
+	void testDelete() {
+		Mockito.when(repo.existsById(store.getId())).thenReturn(false);
+
+		assertEquals(true, service.delete(store.getId()));
+
+		Mockito.verify(repo, Mockito.times(1)).existsById(store.getId());
+	}
+
+	@Test
 	void testFindById() {
 		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
 
