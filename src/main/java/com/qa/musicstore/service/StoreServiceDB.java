@@ -10,6 +10,7 @@ import com.qa.musicstore.data.Item;
 import com.qa.musicstore.data.Store;
 import com.qa.musicstore.dto.ItemDTO;
 import com.qa.musicstore.dto.StoreDTO;
+import com.qa.musicstore.exceptions.StoreNotFoundException;
 import com.qa.musicstore.repo.StoreRepo;
 import com.qa.musicstore.service.interfaces.StoreService;
 
@@ -66,8 +67,24 @@ public class StoreServiceDB implements StoreService {
 	}
 
 	@Override
+	public StoreDTO update(Integer id, Store store) {
+		Store updatedStore = repo.findById(id).orElseThrow(StoreNotFoundException::new);
+		updatedStore.setAddress(store.getAddress());
+		updatedStore.setContactNumber(store.getContactNumber());
+		updatedStore.setManager(store.getManager());
+		updatedStore.setItems(store.getItems());
+		return mapToDTO(repo.save(updatedStore));
+	}
+
+	@Override
+	public boolean delete(Integer id) {
+		repo.deleteById(id);
+		return !repo.existsById(id);
+	}
+
+	@Override
 	public StoreDTO findById(Integer id) {
-		return mapToDTO(repo.findById(id).orElse(null));
+		return mapToDTO(repo.findById(id).orElseThrow(StoreNotFoundException::new));
 	}
 
 	@Override

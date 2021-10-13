@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.qa.musicstore.data.Item;
 import com.qa.musicstore.dto.ItemDTO;
+import com.qa.musicstore.exceptions.ItemNotFoundException;
 import com.qa.musicstore.repo.ItemRepo;
 import com.qa.musicstore.service.interfaces.ItemService;
 
@@ -52,8 +53,28 @@ public class ItemServiceDB implements ItemService {
 	}
 
 	@Override
+	public ItemDTO update(Integer id, Item item) {
+		Item updatedItem = repo.findById(id).orElseThrow(ItemNotFoundException::new);
+		updatedItem.setBrand(item.getBrand());
+		updatedItem.setCategory(item.getCategory());
+		updatedItem.setInstrument(item.getInstrument());
+		updatedItem.setName(item.getName());
+		updatedItem.setType(item.getType());
+		updatedItem.setPrice(item.getPrice());
+		updatedItem.setStock(item.getStock());
+		updatedItem.setStore(item.getStore());
+		return mapToDTO(repo.save(updatedItem));
+	}
+
+	@Override
+	public boolean delete(Integer id) {
+		repo.deleteById(id);
+		return !repo.existsById(id);
+	}
+
+	@Override
 	public ItemDTO findById(Integer id) {
-		return mapToDTO(repo.findById(id).orElse(null));
+		return mapToDTO(repo.findById(id).orElseThrow(ItemNotFoundException::new));
 	}
 
 	@Override
