@@ -44,7 +44,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/findByParameters")
-	public List<StoreDTO> findByParams(@PathParam("manage") String manager, @PathParam("address") String address,
+	public List<StoreDTO> findByParams(@PathParam("manager") String manager, @PathParam("address") String address,
 			@PathParam("contactNumber") String contactNumber) {
 		return service.findByManagerOrAddressOrContactNumber(manager, address, contactNumber);
 	}
