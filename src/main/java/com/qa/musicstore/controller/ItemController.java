@@ -1,5 +1,6 @@
 package com.qa.musicstore.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -84,5 +85,10 @@ public class ItemController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@PostMapping("/order/{ids}")
+	public ResponseEntity<String> order(@PathVariable Integer[] ids) {
+		return new ResponseEntity<>(service.order(Arrays.asList(ids)), HttpStatus.OK);
 	}
 }

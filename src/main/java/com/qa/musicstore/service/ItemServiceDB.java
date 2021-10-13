@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.qa.musicstore.data.Item;
 import com.qa.musicstore.dto.ItemDTO;
 import com.qa.musicstore.exceptions.ItemNotFoundException;
+import com.qa.musicstore.exceptions.ItemsNotFoundException;
 import com.qa.musicstore.repo.ItemRepo;
 import com.qa.musicstore.service.interfaces.ItemService;
 
@@ -70,6 +71,28 @@ public class ItemServiceDB implements ItemService {
 	public boolean delete(Integer id) {
 		repo.deleteById(id);
 		return !repo.existsById(id);
+	}
+
+	@Override
+	public String order(List<Integer> ids) {
+		List<Item> items = repo.findAllById(ids);
+		if (items.isEmpty()) {
+			throw new ItemsNotFoundException();
+		}
+		repo.deleteAllById(ids);
+		StringBuilder string = new StringBuilder("Order Successful!\n\nItems:");
+		Integer total = 0;
+		Integer it = 1;
+		for (Item item : items) {
+			string.append("\n" + it + ": " + item.toReceipt() + "\n(from Store:" + item.getStore().toReceipt() + ")");
+			total += item.getPrice();
+			it++;
+		}
+		String totalString = String.valueOf(total);
+		string.append("\nTotal: £"
+				+ totalString.substring(0, totalString.length() - 2) + "."
+				+ totalString.substring(totalString.length() - 2) + "\n\nThanks for shopping at TheMusicStore.\nPlease visit again.");
+		return string.toString();
 	}
 
 	@Override
