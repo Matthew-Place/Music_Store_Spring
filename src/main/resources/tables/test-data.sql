@@ -6,7 +6,7 @@ INSERT INTO store
 )
 VALUES
 (
-   'Matthew',
+   'Me',
    'Home',
    '000000000000'
 );
