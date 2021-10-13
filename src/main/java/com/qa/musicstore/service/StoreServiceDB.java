@@ -96,5 +96,4 @@ public class StoreServiceDB implements StoreService {
 	public List<StoreDTO> findByManagerOrAddressOrContactNumber(String manager, String address, String contactNumber) {
 		return mapToDTO(repo.findByManagerOrAddressOrContactNumber(manager, address, contactNumber));
 	}
-
 }
