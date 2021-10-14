@@ -86,8 +86,12 @@ public class Store {
 
 	@Override
 	public String toString() {
-		return "Store [id=" + id + ", manager=" + manager + ", address=" + address + ", contactNumber=" + contactNumber
-				+ ", items=" + items + "]";
+		return "id: " + id + ", manager: " + manager + ", address: " + address + ", contactNumber: " + contactNumber
+				+ ", items: " + items;
+	}
+
+	public String toReceipt() {
+		return "id: " + id + ", manager: " + manager + ", address: " + address + ", contactNumber: " + contactNumber;
 	}
 
 	@Override

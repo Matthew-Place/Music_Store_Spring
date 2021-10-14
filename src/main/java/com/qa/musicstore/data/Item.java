@@ -116,11 +116,16 @@ public class Item {
 
 	@Override
 	public String toString() {
+		return "id: " + id + ", type: " + type + ", category: " + category + ", instrument: " + instrument
+				+ ", brand: " + brand + ", name: " + name + ", price:" + price + ", stock: " + stock + ", store: " + store;
+	}
+
+	public String toReceipt() {
 		String priceString = String.valueOf(price);
-		return "Item [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
-				+ ", brand=" + brand + ", name=" + name + ", price = £"
+		return "id: " + id + ", type: " + type + ", category: " + category + ", instrument: " + instrument
+				+ ", brand: " + brand + ", name: " + name + ", price: £"
 				+ priceString.substring(0, priceString.length() - 2) + "."
-				+ priceString.substring(priceString.length() - 2) + ", stock=" + stock + ", store=" + store + "]";
+				+ priceString.substring(priceString.length() - 2) + ", stock: " + stock;
 	}
 
 	@Override
