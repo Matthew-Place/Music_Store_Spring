@@ -109,7 +109,7 @@ class ItemIntegrationTest {
 	void testFindById() throws Exception {
 		final ItemDTO savedItem = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
 				testStore.getId());
-		String savedItemJSON = mapper.writeValueAsString(savedItem);
+		String savedItemJSON = mapper.writeValueAsString(List.of(savedItem));
 
 		RequestBuilder request = get("/Item/findById/{id}", 1);
 

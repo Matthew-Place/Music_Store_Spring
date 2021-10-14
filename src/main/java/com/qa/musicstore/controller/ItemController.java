@@ -41,9 +41,9 @@ public class ItemController {
 		return new ResponseEntity<>(service.update(id, item), HttpStatus.ACCEPTED);
 	}
 
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id) {
-		if (service.delete(id)) {
+	@DeleteMapping("/delete/{ids}")
+	public ResponseEntity<HttpStatus> delete(@PathVariable Integer[] ids) {
+		if (service.delete(Arrays.asList(ids))) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -55,9 +55,9 @@ public class ItemController {
 		return new ResponseEntity<>(service.order(Arrays.asList(ids)), HttpStatus.OK);
 	}
 
-	@GetMapping("/findById/{id}")
-	public ItemDTO findById(@PathVariable Integer id) {
-		return service.findById(id);
+	@GetMapping("/findById/{ids}")
+	public List<ItemDTO> findById(@PathVariable Integer[] ids) {
+		return service.findById(Arrays.asList(ids));
 	}
 
 	@GetMapping("/findAll")

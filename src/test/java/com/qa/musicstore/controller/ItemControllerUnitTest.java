@@ -56,11 +56,12 @@ class ItemControllerUnitTest {
 
 	@Test
 	void testDelete() {
-		Mockito.when(service.delete(item.getId())).thenReturn(true);
+		Mockito.when(service.delete(Arrays.asList(item.getId()))).thenReturn(true);
 
-		assertEquals(new ResponseEntity<>(HttpStatus.NO_CONTENT), controller.delete(item.getId()));
+		Integer[] ids = { item.getId() };
+		assertEquals(new ResponseEntity<>(HttpStatus.NO_CONTENT), controller.delete(ids));
 
-		Mockito.verify(service, Mockito.times(1)).delete(item.getId());
+		Mockito.verify(service, Mockito.times(1)).delete(Arrays.asList(item.getId()));
 	}
 
 	@Test
@@ -74,7 +75,6 @@ class ItemControllerUnitTest {
 		Mockito.when(service.order(Arrays.asList(item.getId()))).thenReturn(string);
 
 		Integer[] ids = { item.getId() };
-
 		assertEquals(new ResponseEntity<>(string, HttpStatus.OK), controller.order(ids));
 
 		Mockito.verify(service, Mockito.times(1)).order(List.of(item.getId()));
@@ -82,11 +82,13 @@ class ItemControllerUnitTest {
 
 	@Test
 	void testFindById() {
-		Mockito.when(service.findById(item.getId())).thenReturn(itemDTO);
+		Mockito.when(service.findById(Arrays.asList(item.getId()))).thenReturn(itemDTOs);
 
-		assertEquals(itemDTO, controller.findById(item.getId()));
 
-		Mockito.verify(service, Mockito.times(1)).findById(item.getId());
+		Integer[] ids = { item.getId() };
+		assertEquals(itemDTOs, controller.findById(ids));
+
+		Mockito.verify(service, Mockito.times(1)).findById(Arrays.asList(item.getId()));
 	}
 
 	@Test
