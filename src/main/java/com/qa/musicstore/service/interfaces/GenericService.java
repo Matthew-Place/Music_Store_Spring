@@ -12,9 +12,9 @@ public interface GenericService<T, K extends Object> {
 
 	public T update(Integer id, K k);
 
-	public boolean delete(List<Integer> ids);
+	public boolean delete(Integer id);
 
-	public List<T> findById(List<Integer> ids);
+	public T findById(Integer id);
 
 	public List<T> findAll();
 }

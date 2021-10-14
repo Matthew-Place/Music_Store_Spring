@@ -67,47 +67,22 @@ class ItemServiceUnitTest {
 	}
 
 	@Test
-	void testDeleteSuccess() {
+	void testDelete() {
 		Mockito.when(repo.existsById(item.getId())).thenReturn(false);
 
-		assertEquals(true, service.delete(Arrays.asList(item.getId())));
+		assertEquals(true, service.delete(item.getId()));
 
-		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(item.getId()));
+		Mockito.verify(repo, Mockito.times(1)).deleteById(item.getId());
 		Mockito.verify(repo, Mockito.times(1)).existsById(item.getId());
 	}
 
 	@Test
-	void testDeleteFail() {
-		Mockito.when(repo.existsById(0)).thenReturn(true);
-
-		assertEquals(false, service.delete(Arrays.asList(0)));
-
-		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(0));
-		Mockito.verify(repo, Mockito.times(1)).existsById(0);
-	}
-
-	@Test
-	void testOrder() {
-		Mockito.when(repo.findAllById(List.of(item.getId()))).thenReturn(items);
-
-		String totalString = String.valueOf(item.getPrice());
-		String string = "Order Successful!\n\nItems:" + "\n" + 1 + ": " + item.toReceipt() + "\n(from Store:"
-				+ item.getStore().toReceipt() + ")" + "\nTotal: £" + totalString.substring(0, totalString.length() - 2)
-				+ "." + totalString.substring(totalString.length() - 2)
-				+ "\n\nThanks for shopping at TheMusicStore.\nPlease visit again.";
-		assertEquals(string, service.order(Arrays.asList(item.getId())));
-
-		Mockito.verify(repo, Mockito.times(1)).findAllById(List.of(item.getId()));
-		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(item.getId()));
-	}
-
-	@Test
 	void testFindById() {
-		Mockito.when(repo.findAllById(List.of(item.getId()))).thenReturn(items);
+		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
 
-		assertEquals(itemDTOs, service.findById(Arrays.asList(item.getId())));
+		assertEquals(itemDTO, service.findById(item.getId()));
 
-		Mockito.verify(repo, Mockito.times(1)).findAllById(List.of(item.getId()));
+		Mockito.verify(repo, Mockito.times(1)).findById(item.getId());
 	}
 
 	@Test

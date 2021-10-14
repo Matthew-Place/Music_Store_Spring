@@ -94,8 +94,8 @@ public class StoreDTO {
 
 	@Override
 	public String toString() {
-		return "id: " + id + ", manager: " + manager + ", address: " + address + ", contact number: "
-				+ contactNumber + ", items: " + itemDTOs;
+		return "StoreDTO [id=" + id + ", manager=" + manager + ", address=" + address + ", contactNumber="
+				+ contactNumber + ", itemDTOs=" + itemDTOs + "]";
 	}
 
 }

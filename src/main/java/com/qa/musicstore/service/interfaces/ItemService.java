@@ -7,8 +7,6 @@ import com.qa.musicstore.dto.ItemDTO;
 
 public interface ItemService extends GenericService<ItemDTO, Item> {
 
-	public String order(List<Integer> ids);
-
 	public List<ItemDTO> findByCategoryOrTypeOrInstrumentOrBrandOrName(String type, String category,
 			String instrument, String brand, String name);
 

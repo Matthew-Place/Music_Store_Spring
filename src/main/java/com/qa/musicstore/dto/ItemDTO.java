@@ -128,9 +128,9 @@ public class ItemDTO {
 
 	@Override
 	public String toString() {
-		return "id: " + id + ", type: " + type + ", category: " + category + ", instrument: " + instrument
-				+ ", brand: " + brand + ", name: " + name + ", price: " + price + ", stock: " + stock + ", store id: "
-				+ storeId;
+		return "ItemDTO [id=" + id + ", type=" + type + ", category=" + category + ", instrument=" + instrument
+				+ ", brand=" + brand + ", name=" + name + ", price=" + price + ", stock=" + stock + ", storeId="
+				+ storeId + "]";
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.qa.musicstore.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -36,23 +35,9 @@ public class StoreController {
 		return new ResponseEntity<>(service.create(store), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/update/{id}")
-	public ResponseEntity<StoreDTO> update(@PathVariable Integer id, @RequestBody Store store) {
-		return new ResponseEntity<>(service.update(id, store), HttpStatus.ACCEPTED);
-	}
-
-	@DeleteMapping("/close/{ids}")
-	public ResponseEntity<HttpStatus> delete(@PathVariable Integer[] ids) {
-		if (service.delete(Arrays.asList(ids))) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@GetMapping("/findById/{ids}")
-	public List<StoreDTO> findById(@PathVariable Integer[] ids) {
-		return service.findById(Arrays.asList(ids));
+	@GetMapping("/findById/{id}")
+	public StoreDTO findById(@PathVariable Integer id) {
+		return service.findById(id);
 	}
 
 	@GetMapping("/findAll")
@@ -65,4 +50,19 @@ public class StoreController {
 			@PathParam("contactNumber") String contactNumber) {
 		return service.findByManagerOrAddressOrContactNumber(manager, address, contactNumber);
 	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<StoreDTO> update(@PathVariable Integer id, @RequestBody Store store) {
+		return new ResponseEntity<>(service.update(id, store), HttpStatus.ACCEPTED);
+	}
+
+	@DeleteMapping("/close/{id}")
+	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id) {
+		if (service.delete(id)) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 }

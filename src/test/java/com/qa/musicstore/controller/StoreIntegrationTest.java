@@ -89,7 +89,7 @@ class StoreIntegrationTest {
 	@Test
 	void testFindById() throws Exception {
 		final StoreDTO savedStore = new StoreDTO(1, "Me", "Home", "000000000000", itemDTOs);
-		String savedStoreJSON = mapper.writeValueAsString(List.of(savedStore));
+		String savedStoreJSON = mapper.writeValueAsString(savedStore);
 
 		RequestBuilder request = get("/Store/findById/{id}", savedStore.getId());
 
