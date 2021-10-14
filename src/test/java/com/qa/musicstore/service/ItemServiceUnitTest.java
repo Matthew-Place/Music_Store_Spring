@@ -77,6 +77,22 @@ class ItemServiceUnitTest {
 	}
 
 	@Test
+	void testOrder() {
+		List<Integer> ids = items.stream().map(n -> n.getId()).toList();
+		Mockito.when(repo.findAllById(ids)).thenReturn(items);
+
+		String totalString = String.valueOf(items.stream().map(n -> n.getPrice()).reduce((n, m) -> n + m).orElse(0));
+		String string = "Order Successful!\n\nItems:" + "\n" + 1 + ": " + item.toReceipt() + "\n(from Store:"
+				+ item.getStore().toReceipt() + ")" + "\nTotal: £" + totalString.substring(0, totalString.length() - 2)
+				+ "." + totalString.substring(totalString.length() - 2)
+				+ "\n\nThanks for shopping at TheMusicStore.\nPlease visit again.";
+		assertEquals(string, service.order(Arrays.asList(item.getId())));
+
+		Mockito.verify(repo, Mockito.times(1)).findAllById(List.of(item.getId()));
+		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(item.getId()));
+	}
+
+	@Test
 	void testFindById() {
 		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
 
