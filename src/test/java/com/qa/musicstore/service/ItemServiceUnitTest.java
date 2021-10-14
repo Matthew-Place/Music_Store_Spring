@@ -78,10 +78,9 @@ class ItemServiceUnitTest {
 
 	@Test
 	void testOrder() {
-		List<Integer> ids = items.stream().map(n -> n.getId()).toList();
-		Mockito.when(repo.findAllById(ids)).thenReturn(items);
+		Mockito.when(repo.findAllById(List.of(item.getId()))).thenReturn(items);
 
-		String totalString = String.valueOf(items.stream().map(n -> n.getPrice()).reduce((n, m) -> n + m).orElse(0));
+		String totalString = String.valueOf(item.getPrice());
 		String string = "Order Successful!\n\nItems:" + "\n" + 1 + ": " + item.toReceipt() + "\n(from Store:"
 				+ item.getStore().toReceipt() + ")" + "\nTotal: £" + totalString.substring(0, totalString.length() - 2)
 				+ "." + totalString.substring(totalString.length() - 2)

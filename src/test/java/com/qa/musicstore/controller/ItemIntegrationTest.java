@@ -87,6 +87,25 @@ class ItemIntegrationTest {
 	}
 
 	@Test
+	void testOrder() throws Exception {
+		final Item testItem = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore);
+
+		RequestBuilder request = post("/Item/order/{id}", testItem.getId());
+
+		String totalString = String.valueOf(testItem.getPrice());
+		String string = "Order Successful!\n\nItems:" + "\n" + 1 + ": " + testItem.toReceipt() + "\n(from Store:"
+				+ testItem.getStore().toReceipt() + ")" + "\nTotal: £"
+				+ totalString.substring(0, totalString.length() - 2) + "."
+				+ totalString.substring(totalString.length() - 2)
+				+ "\n\nThanks for shopping at TheMusicStore.\nPlease visit again.";
+
+		ResultMatcher checkContent = content().string(string);
+		ResultMatcher checkStatus = status().isOk();
+
+		mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
+
+	@Test
 	void testFindById() throws Exception {
 		final ItemDTO savedItem = new ItemDTO(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10,
 				testStore.getId());
