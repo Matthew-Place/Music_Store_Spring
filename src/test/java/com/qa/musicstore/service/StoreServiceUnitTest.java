@@ -71,21 +71,32 @@ class StoreServiceUnitTest {
 	}
 
 	@Test
-	void testDelete() {
+	void testDeleteSuccess() {
 		Mockito.when(repo.existsById(store.getId())).thenReturn(false);
 
-		assertEquals(true, service.delete(store.getId()));
+		assertEquals(true, service.delete(Arrays.asList(store.getId())));
 
+		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(store.getId()));
 		Mockito.verify(repo, Mockito.times(1)).existsById(store.getId());
 	}
 
 	@Test
+	void testDeleteFail() {
+		Mockito.when(repo.existsById(0)).thenReturn(true);
+
+		assertEquals(false, service.delete(Arrays.asList(0)));
+
+		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(0));
+		Mockito.verify(repo, Mockito.times(1)).existsById(0);
+	}
+
+	@Test
 	void testFindById() {
-		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
+		Mockito.when(repo.findAllById(List.of(store.getId()))).thenReturn(stores);
 
-		assertEquals(storeDTO, service.findById(store.getId()));
+		assertEquals(storeDTOs, service.findById(Arrays.asList(store.getId())));
 
-		Mockito.verify(repo, Mockito.times(1)).findById(store.getId());
+		Mockito.verify(repo, Mockito.times(1)).findAllById(List.of(store.getId()));
 	}
 
 	@Test
