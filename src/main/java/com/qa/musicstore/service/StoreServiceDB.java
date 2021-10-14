@@ -77,14 +77,14 @@ public class StoreServiceDB implements StoreService {
 	}
 
 	@Override
-	public boolean delete(Integer id) {
-		repo.deleteById(id);
-		return !repo.existsById(id);
+	public boolean delete(List<Integer> ids) {
+		repo.deleteAllById(ids);
+		return ids.stream().map(n -> !repo.existsById(n)).allMatch(n -> n);
 	}
 
 	@Override
-	public StoreDTO findById(Integer id) {
-		return mapToDTO(repo.findById(id).orElseThrow(StoreNotFoundException::new));
+	public List<StoreDTO> findById(List<Integer> ids) {
+		return mapToDTO(repo.findAllById(ids));
 	}
 
 	@Override
