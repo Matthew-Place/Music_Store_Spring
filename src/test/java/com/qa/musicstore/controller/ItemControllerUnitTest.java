@@ -75,7 +75,7 @@ class ItemControllerUnitTest {
 		Mockito.when(service.order(Arrays.asList(item.getId()))).thenReturn(string);
 
 		Integer[] ids = { item.getId() };
-		assertEquals(new ResponseEntity<>(string, HttpStatus.OK), controller.order(ids));
+		assertEquals(new ResponseEntity<>(string, HttpStatus.ACCEPTED), controller.order(ids));
 
 		Mockito.verify(service, Mockito.times(1)).order(List.of(item.getId()));
 	}
