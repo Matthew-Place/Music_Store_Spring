@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.qa.musicstore.data.Item;
 import com.qa.musicstore.dto.ItemDTO;
+import com.qa.musicstore.exceptions.InsufficientStockException;
 import com.qa.musicstore.exceptions.ItemNotFoundException;
 import com.qa.musicstore.repo.ItemRepo;
 import com.qa.musicstore.service.interfaces.ItemService;
@@ -68,6 +69,7 @@ public class ItemServiceDB implements ItemService {
 
 	@Override
 	public boolean delete(List<Integer> ids) {
+		ids.forEach(id -> repo.findById(id).orElseThrow(ItemNotFoundException::new));
 		repo.deleteAllById(ids);
 		return !ids.stream().map(n -> repo.existsById(n)).toList().contains(true);
 	}
@@ -75,11 +77,15 @@ public class ItemServiceDB implements ItemService {
 	@Override
 	public String order(List<Integer> ids) {
 		List<Item> items = repo.findAllById(ids);
-		repo.deleteAllById(ids);
+		if (items.stream().map(n -> n.getStock()).anyMatch(n -> n.equals(0))) {
+			throw new InsufficientStockException();
+		}
 		StringBuilder string = new StringBuilder("Order Successful!\n\nItems:");
 		Integer total = 0;
 		Integer it = 1;
 		for (Item item : items) {
+			item.setStock(item.getStock()-1);
+			repo.save(item);
 			string.append("\n" + it + ": " + item.toReceipt() + "\n(from Store:" + item.getStore().toReceipt() + ")");
 			total += item.getPrice();
 			it++;
