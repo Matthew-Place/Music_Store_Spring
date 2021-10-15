@@ -1,11 +1,29 @@
 # Music_Store_Spring
 ## About
-A music store JPA backend which connects to a MySQL database to keep track of stores and their items for sale. Can be connected to using a frontend - not in development - or using the H2-console or Postman.
+A music store JPA backend using Spring which connects to a MySQL database to keep track of stores and their items for sale. Can be connected to using a frontend - not in development - or using the H2-console or Postman.
 ## Features
 The API creates two tables in a MySQL database with a bi-directional one-to-many relationship; Items and Store - one store to many items.
 
 ## Download
 [Download the lastest version](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/MusicStore-0.0.1-SNAPSHOT.jar?raw=true)
+
+## Overview
+This project is a testament to my abilities that I have gained through the QA bootcamp and will be used to assess my capability to apply what I have learnt to my own project, desgined, produced and tested by me.
+
+I expected that this project would go well snice I had created a Jira project to help me track tasks and manage my time better. I had also set myself a reasonable goal gover only slightly our of my confort zone as I already had the knowledge of most aspects of this project and previous projects employing the similar features - see [First-Project](https://github.com/Matthew-Place/QA_First_Springboot_Project) and [Garage-Spring](https://github.com/Matthew-Place/Garage-Spring).
+The most challenging section was creating the order method because I had not done one like it before. I had also decide that I wanted to implement a reoccuring idea in my methods; the ability input multiple id's instead of just one. The order method also implemented this idea, and was what made me think of it in the first place. It started out simple as there were already repository methods such as FindAllById and DeleteAllById as part of Spring. The most difficult part was linking them with the controller and how to inplement this in Postman.
+
+### Possible Improvements
+There was one I thought of near the start, but not to overload my workload I decided to leave it out for the time being. I never did get the chance to implement it in the end. The idea was that I should have another Entity called Stock, de-coupling the stock number from the item itself. This would mean I could have one item in multiple stores which all have their own level of stock. To do that as the programme is now, the user would need to make multiple items differing only by stock - inefficient and cumbersome.
+In order to implement it a little thought must be given to the relatoiinships required. My current understanding is that Stores will have a many to one relationship with Stock and Stock will have a many to one relationship with Items, i.e. Stock holds an item and its stock in each row and which store its being held in. Stock may hold muliple of the same item with different stock, and then assign each one to a different store - only one item required.
+
+Other improvements cover things like when a store is deleted, the user could have option to reassign that stock to a new store. This would work well for stores closing and wanting to move their remaining stock to thir over stores. If all the stock was also lost somehow, e.g. store burns down, then obviously the current method works well.
+
+### Risk Assessment
+A full Risk Assessment has been made and can be found [here](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Risk_Assessment.pdf)
+
+## Acknowledgements
+There are no other collaborators for this project. However, the Cohort I was with extended some help to me in certain cases. I thank them for their help, especially our [Trainer](https://github.com/RichMans96).
 
 ## Usage
 Methods which can be called through Postman and their functions (should be fairly intuative):
