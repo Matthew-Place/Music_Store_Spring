@@ -65,7 +65,7 @@ class StoreIntegrationTest {
 		final Store testStore = new Store(1, "You", "Away", "111111111111");
 		String testStoreJSON = mapper.writeValueAsString(testStore);
 
-		final StoreDTO savedStore = new StoreDTO(1, "You", "Away", "111111111111");
+		final StoreDTO savedStore = new StoreDTO(1, "You", "Away", "111111111111", itemDTOs);
 		String savedStoreJSON = mapper.writeValueAsString(savedStore);
 
 		RequestBuilder request = put("/Store/update/{id}", 1).contentType(MediaType.APPLICATION_JSON)
