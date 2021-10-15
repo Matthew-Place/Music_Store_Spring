@@ -49,16 +49,22 @@ For store this is called by close - as it is more appropriate. Simple deletes a 
 ![Store Delete](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Store_Delete_new.png)
 ![Item Delete](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Item_Delete.png)
 This can fail on the condition that one of the id's entered does not exist:
-![Store Delete Fail](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Store_Delete_Fail.png)
-![Item Delete Fail](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Item_Delete_Fail.png)
+![Store Delete Fail](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Store_Delete_fail.png)
+![Item Delete Fail](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Item_Delete_fail.png)
 ### Order (Item Only)
 Can order items using their id as input. If successful this will reduce the stock by 1 and return a receipt to te user with information about the order.
 ![Order](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Item_Order.png)
 But in the case of there being no stock available the user will recieve an error:
-![Order_Fail](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Item_Order_Fail.png)
+![Order_Fail](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Item_Order_fail.png)
 
 ## Testing
 Thourough testing is implemented testing all service and controller methods, covering successes and expected failures where appropriate. A coverage of 80% is achieved on the main:
 ![Coverage](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Coverage.png)
+
 All tests are successful:
 ![Tests](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/Tests.png)
+
+## Database
+A MySQL database is established and use to store data in the tables in a schema:
+![Store Database](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/MySQL_Store.png)
+![Item Database](https://github.com/Matthew-Place/Music_Store_Spring/blob/main/Documentation/MySQL_Item.png)
