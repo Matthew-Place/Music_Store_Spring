@@ -72,12 +72,13 @@ public class StoreServiceDB implements StoreService {
 		updatedStore.setAddress(store.getAddress());
 		updatedStore.setContactNumber(store.getContactNumber());
 		updatedStore.setManager(store.getManager());
-		updatedStore.setItems(store.getItems());
+//		updatedStore.setItems(store.getItems()); // Cannot directly alter with the items, best to update them from the item side
 		return mapToDTO(repo.save(updatedStore));
 	}
 
 	@Override
 	public boolean delete(List<Integer> ids) {
+		ids.forEach(id -> repo.findById(id).orElseThrow(StoreNotFoundException::new));
 		repo.deleteAllById(ids);
 		return ids.stream().map(n -> !repo.existsById(n)).allMatch(n -> n);
 	}
