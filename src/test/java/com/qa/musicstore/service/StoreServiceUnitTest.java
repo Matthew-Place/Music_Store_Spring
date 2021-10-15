@@ -1,6 +1,7 @@
 package com.qa.musicstore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import com.qa.musicstore.data.Item;
 import com.qa.musicstore.data.Store;
 import com.qa.musicstore.dto.ItemDTO;
 import com.qa.musicstore.dto.StoreDTO;
+import com.qa.musicstore.exceptions.StoreNotFoundException;
 import com.qa.musicstore.repo.StoreRepo;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -60,7 +62,7 @@ class StoreServiceUnitTest {
 	}
 
 	@Test
-	void testUpdate() {
+	void testUpdateSuccess() {
 		Mockito.when(repo.save(store)).thenReturn(store);
 		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
 
@@ -71,23 +73,53 @@ class StoreServiceUnitTest {
 	}
 
 	@Test
+	void testUpdateFail() {
+		Mockito.when(repo.save(store)).thenReturn(store);
+		Mockito.when(repo.findById(0)).thenThrow(StoreNotFoundException.class);
+
+		assertThrows(StoreNotFoundException.class, () -> service.update(0, store));
+
+		Mockito.verify(repo, Mockito.times(1)).findById(0);
+		Mockito.verify(repo, Mockito.times(0)).save(store);
+	}
+
+
+	@Test
 	void testDeleteSuccess() {
 		Mockito.when(repo.existsById(store.getId())).thenReturn(false);
+		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
 
 		assertEquals(true, service.delete(Arrays.asList(store.getId())));
 
 		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(store.getId()));
 		Mockito.verify(repo, Mockito.times(1)).existsById(store.getId());
+		Mockito.verify(repo, Mockito.times(1)).findById(store.getId());
+
 	}
 
 	@Test
 	void testDeleteFail() {
-		Mockito.when(repo.existsById(0)).thenReturn(true);
+		Mockito.when(repo.existsById(store.getId())).thenReturn(true);
+		Mockito.when(repo.findById(store.getId())).thenReturn(Optional.of(store));
 
-		assertEquals(false, service.delete(Arrays.asList(0)));
+		assertEquals(false, service.delete(Arrays.asList(store.getId())));
 
-		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(0));
-		Mockito.verify(repo, Mockito.times(1)).existsById(0);
+		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(store.getId()));
+		Mockito.verify(repo, Mockito.times(1)).existsById(store.getId());
+		Mockito.verify(repo, Mockito.times(1)).findById(store.getId());
+	}
+
+	@Test
+	void testDeleteNotFound() {
+		Mockito.when(repo.existsById(0)).thenReturn(false);
+		Mockito.when(repo.findById(0)).thenThrow(StoreNotFoundException.class);
+
+		List<Integer> ids = new ArrayList<>(Arrays.asList(0));
+		assertThrows(StoreNotFoundException.class, () -> service.delete(ids));
+
+		Mockito.verify(repo, Mockito.times(0)).deleteAllById(List.of(0));
+		Mockito.verify(repo, Mockito.times(0)).existsById(0);
+		Mockito.verify(repo, Mockito.times(1)).findById(0);
 	}
 
 	@Test

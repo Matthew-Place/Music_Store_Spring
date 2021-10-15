@@ -1,6 +1,7 @@
 package com.qa.musicstore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,8 @@ import org.springframework.test.context.ActiveProfiles;
 import com.qa.musicstore.data.Item;
 import com.qa.musicstore.data.Store;
 import com.qa.musicstore.dto.ItemDTO;
+import com.qa.musicstore.exceptions.InsufficientStockException;
+import com.qa.musicstore.exceptions.ItemNotFoundException;
 import com.qa.musicstore.repo.ItemRepo;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -56,7 +59,7 @@ class ItemServiceUnitTest {
 	}
 
 	@Test
-	void testUpdate() {
+	void testUpdateSuccess() {
 		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
 		Mockito.when(repo.save(item)).thenReturn(item);
 
@@ -67,38 +70,80 @@ class ItemServiceUnitTest {
 	}
 
 	@Test
+	void testUpdateFail() {
+		Mockito.when(repo.findById(0)).thenThrow(ItemNotFoundException.class);
+		Mockito.when(repo.save(item)).thenReturn(item);
+
+		assertThrows(ItemNotFoundException.class, () -> service.update(0, item));
+		Mockito.verify(repo, Mockito.times(0)).save(item);
+		Mockito.verify(repo, Mockito.times(1)).findById(0);
+	}
+
+	@Test
 	void testDeleteSuccess() {
 		Mockito.when(repo.existsById(item.getId())).thenReturn(false);
+		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
 
 		assertEquals(true, service.delete(Arrays.asList(item.getId())));
 
 		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(item.getId()));
 		Mockito.verify(repo, Mockito.times(1)).existsById(item.getId());
+		Mockito.verify(repo, Mockito.times(1)).findById(item.getId());
 	}
 
 	@Test
 	void testDeleteFail() {
-		Mockito.when(repo.existsById(0)).thenReturn(true);
+		Mockito.when(repo.existsById(item.getId())).thenReturn(true);
+		Mockito.when(repo.findById(item.getId())).thenReturn(Optional.of(item));
 
-		assertEquals(false, service.delete(Arrays.asList(0)));
+		assertEquals(false, service.delete(Arrays.asList(item.getId())));
 
-		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(0));
-		Mockito.verify(repo, Mockito.times(1)).existsById(0);
+		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(item.getId()));
+		Mockito.verify(repo, Mockito.times(1)).existsById(item.getId());
+		Mockito.verify(repo, Mockito.times(1)).findById(item.getId());
 	}
 
 	@Test
-	void testOrder() {
-		Mockito.when(repo.findAllById(List.of(item.getId()))).thenReturn(items);
+	void testDeleteNotFound() {
+		Mockito.when(repo.existsById(0)).thenReturn(false);
+		Mockito.when(repo.findById(0)).thenThrow(ItemNotFoundException.class);
 
+		List<Integer> ids = new ArrayList<>(Arrays.asList(0));
+		assertThrows(ItemNotFoundException.class, () -> service.delete(ids));
+
+		Mockito.verify(repo, Mockito.times(0)).deleteAllById(List.of(0));
+		Mockito.verify(repo, Mockito.times(0)).existsById(0);
+	}
+
+	@Test
+	void testOrderSuccess() {
+		Mockito.when(repo.findAllById(List.of(item.getId()))).thenReturn(items);
+		Mockito.when(repo.save(item)).thenReturn(item);
+
+		item.setStock(item.getStock() - 1);
 		String totalString = String.valueOf(item.getPrice());
 		String string = "Order Successful!\n\nItems:" + "\n" + 1 + ": " + item.toReceipt() + "\n(from Store:"
 				+ item.getStore().toReceipt() + ")" + "\nTotal: £" + totalString.substring(0, totalString.length() - 2)
 				+ "." + totalString.substring(totalString.length() - 2)
 				+ "\n\nThanks for shopping at TheMusicStore.\nPlease visit again.";
+		item.setStock(item.getStock() + 1);
 		assertEquals(string, service.order(Arrays.asList(item.getId())));
 
 		Mockito.verify(repo, Mockito.times(1)).findAllById(List.of(item.getId()));
-		Mockito.verify(repo, Mockito.times(1)).deleteAllById(List.of(item.getId()));
+		Mockito.verify(repo, Mockito.times(1)).save(item);
+	}
+
+	@Test
+	void testOrderFail() {
+		item.setStock(0);
+		Mockito.when(repo.findAllById(List.of(item.getId()))).thenReturn(items);
+		Mockito.when(repo.save(item)).thenReturn(item);
+
+		List<Integer> ids = new ArrayList<>(Arrays.asList(item.getId()));
+		assertThrows(InsufficientStockException.class, () -> service.order(ids));
+
+		Mockito.verify(repo, Mockito.times(1)).findAllById(List.of(item.getId()));
+		Mockito.verify(repo, Mockito.times(0)).save(item);
 	}
 
 	@Test
