@@ -52,7 +52,7 @@ public class ItemController {
 
 	@PostMapping("/order/{ids}")
 	public ResponseEntity<String> order(@PathVariable Integer[] ids) {
-		return new ResponseEntity<>(service.order(Arrays.asList(ids)), HttpStatus.OK);
+		return new ResponseEntity<>(service.order(Arrays.asList(ids)), HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/findById/{ids}")
