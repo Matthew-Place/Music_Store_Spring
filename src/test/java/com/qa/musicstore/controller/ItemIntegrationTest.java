@@ -88,7 +88,7 @@ class ItemIntegrationTest {
 
 	@Test
 	void testOrder() throws Exception {
-		final Item testItem = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 10, testStore);
+		final Item testItem = new Item(1, "Instrument", "String", "Guitar", "Fender", "Classic", 1000, 9, testStore);
 
 		RequestBuilder request = post("/Item/order/{id}", testItem.getId());
 
@@ -100,7 +100,7 @@ class ItemIntegrationTest {
 				+ "\n\nThanks for shopping at TheMusicStore.\nPlease visit again.";
 
 		ResultMatcher checkContent = content().string(string);
-		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkStatus = status().isAccepted();
 
 		mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
 	}
